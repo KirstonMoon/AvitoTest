@@ -7,13 +7,24 @@
 
 import UIKit
 
+protocol MainDisplayLogic: class {
+    
+}
+
 final class MainViewController: UIViewController {
 
+    var interactor: MainInteractorLogic?
+    
+    var string = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .blue
     }
 
 
 }
 
+extension MainViewController: MainDisplayLogic {
+    
+}
