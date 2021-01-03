@@ -18,8 +18,7 @@ protocol MainInteractorLogic: class {
 
 final class MainInteractor {
     
-    var presenter: MainPresenterLogic?
-    
+    var presenter: MainPresenterLogic
     let networkService: NetworkServiceProtocol
     
     var titleString: String?
