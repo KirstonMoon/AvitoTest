@@ -17,7 +17,6 @@
 		20F0C3FC25A0A3C5009DFEC2 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0C3FB25A0A3C5009DFEC2 /* MainInteractor.swift */; };
 		20F0C3FF25A0A3CE009DFEC2 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0C3FE25A0A3CE009DFEC2 /* MainPresenter.swift */; };
 		20F0C40225A0A50A009DFEC2 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0C40125A0A50A009DFEC2 /* ModuleBuilder.swift */; };
-		20F0C40625A0A829009DFEC2 /* result.json in Resources */ = {isa = PBXBuildFile; fileRef = 20F0C40525A0A829009DFEC2 /* result.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		20F0C3FB25A0A3C5009DFEC2 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
 		20F0C3FE25A0A3CE009DFEC2 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		20F0C40125A0A50A009DFEC2 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
-		20F0C40525A0A829009DFEC2 /* result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +82,6 @@
 			children = (
 				203F772725A20B14006A6A10 /* Networking */,
 				203F76FE25A1E001006A6A10 /* Model */,
-				20F0C40425A0A768009DFEC2 /* JSON */,
 				20F0C3F525A0A252009DFEC2 /* Application */,
 				20F0C3F925A0A3B9009DFEC2 /* MainModule */,
 			);
@@ -112,14 +109,6 @@
 				20F0C3FE25A0A3CE009DFEC2 /* MainPresenter.swift */,
 			);
 			path = MainModule;
-			sourceTree = "<group>";
-		};
-		20F0C40425A0A768009DFEC2 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				20F0C40525A0A829009DFEC2 /* result.json */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,7 +169,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				20F0C3ED25A0A249009DFEC2 /* LaunchScreen.storyboard in Resources */,
-				20F0C40625A0A829009DFEC2 /* result.json in Resources */,
 				20F0C3EA25A0A249009DFEC2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
