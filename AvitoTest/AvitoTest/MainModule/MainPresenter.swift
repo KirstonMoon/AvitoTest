@@ -5,10 +5,10 @@
 //  Created by Kirill Magerya on 02.01.2021.
 //
 
-import Foundation
+import UIKit
 
 protocol MainPresenterLogic: class {
-    
+    func presentData(data: [List], images: [UIImage])
 }
 
 final class MainPresenter {
@@ -17,5 +17,7 @@ final class MainPresenter {
 }
 
 extension MainPresenter: MainPresenterLogic {
-    
+    func presentData(data: [List], images: [UIImage]) {
+        viewController?.present(data: data, images: images)
+    }
 }

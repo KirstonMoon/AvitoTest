@@ -5,7 +5,7 @@
 //  Created by Kirill Magerya on 02.01.2021.
 //
 
-import Foundation
+import UIKit
 
 protocol MainInteractorLogic: class {
     
@@ -23,6 +23,7 @@ final class MainInteractor {
     
     var titleString: String?
     var itemsList: [List]?
+    var images = [UIImage]()
     
     init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol) {
         self.presenter = presenter
@@ -38,8 +39,18 @@ extension MainInteractor: MainInteractorLogic {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let resultData):
-                    self.titleString = resultData?.result.title
-                    self.itemsList = resultData?.result.list
+                    guard let resultData = resultData else { return }
+                    self.titleString = resultData.result.title
+                    self.itemsList = resultData.result.list
+                    
+                    for imageURL in resultData.result.list {
+                        let image = UIImage(data: try! Data(contentsOf: URL(string: imageURL.icon.the52X52)!))
+                        self.images.append(image ?? UIImage())
+                    }
+                    
+                    guard let items = self.itemsList else { return }
+                    self.presenter.presentData(data: items, images: self.images)
+                    
                 case .failure(let error):
                     print(error.localizedDescription as Any)
                 }
