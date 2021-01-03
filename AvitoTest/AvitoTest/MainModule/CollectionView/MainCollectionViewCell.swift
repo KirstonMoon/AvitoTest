@@ -22,7 +22,7 @@ class MainCollectionViewCell: UICollectionViewCell {
         setupPriceLabel()
         setupCheckmarkButton()
         setupImageView()
-        setupActivityIndicator()
+       // setupActivityIndicator()
     }
     
     let activityIndicator: UIActivityIndicatorView = {
