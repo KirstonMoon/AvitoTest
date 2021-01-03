@@ -66,6 +66,7 @@
 		203F772F25A2135A006A6A10 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				20F0C3E425A0A243009DFEC2 /* MainViewController.swift */,
 				203F773025A21371006A6A10 /* MainCollectionViewCell.swift */,
 			);
 			path = CollectionView;
@@ -115,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				203F772F25A2135A006A6A10 /* CollectionView */,
-				20F0C3E425A0A243009DFEC2 /* MainViewController.swift */,
 				20F0C3FB25A0A3C5009DFEC2 /* MainInteractor.swift */,
 				20F0C3FE25A0A3CE009DFEC2 /* MainPresenter.swift */,
 			);

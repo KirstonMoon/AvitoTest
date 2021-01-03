@@ -24,6 +24,8 @@ final class MainInteractor {
     var titleString: String?
     var itemsList: [List]?
     var images = [UIImage]()
+    var titleLabel = String()
+    var buttonText = String()
     
     init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol) {
         self.presenter = presenter
@@ -42,6 +44,8 @@ extension MainInteractor: MainInteractorLogic {
                     guard let resultData = resultData else { return }
                     self.titleString = resultData.result.title
                     self.itemsList = resultData.result.list
+                    self.titleLabel = resultData.result.title
+                    self.buttonText = resultData.result.selectedActionTitle
                     
                     for imageURL in resultData.result.list {
                         let image = UIImage(data: try! Data(contentsOf: URL(string: imageURL.icon.the52X52)!))
@@ -49,7 +53,7 @@ extension MainInteractor: MainInteractorLogic {
                     }
                     
                     guard let items = self.itemsList else { return }
-                    self.presenter.presentData(data: items, images: self.images)
+                    self.presenter.presentData(data: items, images: self.images, title: self.titleLabel, buttonTitle: self.buttonText)
                     
                 case .failure(let error):
                     print(error.localizedDescription as Any)
