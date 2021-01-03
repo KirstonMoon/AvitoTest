@@ -17,8 +17,9 @@ class ModuleBuilder: Builder {
     static func createMain() -> UIViewController {
         
         let view = MainViewController()
-        let interactor = MainInteractor()
         let presenter = MainPresenter()
+        let networkService = NetworkService()
+        let interactor = MainInteractor(presenter: presenter, networkService: networkService)
         
         interactor.presenter = presenter
         presenter.viewController = view
