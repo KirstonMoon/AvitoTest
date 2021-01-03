@@ -41,7 +41,7 @@ extension MainInteractor: MainInteractorLogic {
                     self.titleString = resultData?.result.title
                     self.itemsList = resultData?.result.list
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print(error.localizedDescription as Any)
                 }
             }
         }
