@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainPresenterLogic: class {
-    func presentData(dataResponse: DataResponse, dataImages: [UIImage])
+    func prepareDataForPresenting(dataResponse: DataResponse, dataImages: [UIImage])
 }
 
 final class MainPresenter {
@@ -17,7 +17,7 @@ final class MainPresenter {
 }
 
 extension MainPresenter: MainPresenterLogic {
-    func presentData(dataResponse: DataResponse, dataImages: [UIImage]) {
+    func prepareDataForPresenting(dataResponse: DataResponse, dataImages: [UIImage]) {
         
         let viewModel = DataViewModel(title: dataResponse.result.title,
                                           buttonTitle: dataResponse.result.selectedActionTitle,

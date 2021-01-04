@@ -18,7 +18,7 @@ final class MainViewController: UIViewController {
     
     var interactor: MainInteractorLogic?
     
-    private var list: [List]?
+    private var fetchedDataArray: [List]?
     private var images: [UIImage]?
     
     var collectionview: UICollectionView!
@@ -39,13 +39,13 @@ final class MainViewController: UIViewController {
         setupCollectionView()
     }
     
-    //MARK: - UI Elements
-    
     private func showLayoutElements() {
         closeMarkView.isHidden = false
         titleLabel.isHidden = false
         chooseButton.isHidden = false
     }
+    
+    //MARK: - UI Elements
     
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -84,14 +84,14 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list?.count ?? 0
+        return fetchedDataArray?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as! MainCollectionViewCell
-        cell.titlelabel.text = list?[indexPath.row].title
-        cell.textLabel.text = list?[indexPath.row].listDescription
-        cell.priceLabel.text = list?[indexPath.row].price
+        cell.titlelabel.text = fetchedDataArray?[indexPath.row].title
+        cell.textLabel.text = fetchedDataArray?[indexPath.row].listDescription
+        cell.priceLabel.text = fetchedDataArray?[indexPath.row].price
         cell.titleImageView.image = self.images?[indexPath.row]
         
         if indexPath.row == selectedIndex {
@@ -113,7 +113,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension MainViewController: MainDisplayLogic {
 
     func displayData(viewModel: DataViewModel) {
-        self.list = viewModel.dataArray
+        self.fetchedDataArray = viewModel.dataArray
         self.images = viewModel.dataImagesArray
         self.titleLabel.text = viewModel.title
         self.chooseButton.setTitle(viewModel.buttonTitle, for: .normal)

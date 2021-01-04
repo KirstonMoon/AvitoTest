@@ -43,13 +43,14 @@ extension MainInteractor: MainInteractorLogic {
                     self.dataImages = [UIImage]()
                     
                     for imageURL in resultData.result.list {
-                        guard let image = UIImage(data: try! Data(contentsOf: URL(string: imageURL.icon.the52X52)!)) else { return }
+                        guard let url = URL(string: imageURL.icon.the52X52),
+                              let image = UIImage(data: try! Data(contentsOf: url)) else { return }
                         self.dataImages?.append(image)
                     }
                     
                     guard let data = self.data,
                           let images = self.dataImages else { return }
-                    self.presenter.presentData(dataResponse: data, dataImages: images)
+                    self.presenter.prepareDataForPresenting(dataResponse: data, dataImages: images)
                     
                 case .failure(let error):
                     print(error.localizedDescription as Any)
