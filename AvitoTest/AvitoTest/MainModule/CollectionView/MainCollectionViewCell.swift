@@ -23,16 +23,7 @@ class MainCollectionViewCell: UICollectionViewCell {
         setupPriceLabel()
         setupCheckmarkButton()
         setupImageView()
-       // setupActivityIndicator()
     }
-    
-    let activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = .black
-        return activityIndicator
-    }()
     
     let titlelabel: UILabel = {
         let label = UILabel()
@@ -121,15 +112,6 @@ class MainCollectionViewCell: UICollectionViewCell {
             titleImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
             titleImageView.heightAnchor.constraint(equalToConstant: 50),
             titleImageView.widthAnchor.constraint(equalToConstant: 50)
-        ])
-    }
-    
-    private func setupActivityIndicator() {
-        addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     

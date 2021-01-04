@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainDisplayLogic: class {
-    func present(data: [List], images: [UIImage], titleLabel: String, buttonText: String)
+    func displayData(viewModel: DataViewModel)
 }
 
 final class MainViewController: UIViewController {
@@ -31,12 +31,29 @@ final class MainViewController: UIViewController {
     }
     
     private func setupView() {
+        setupActivityIndicator()
         setupCloseMarkView()
         setupTitleLabel()
         setupChooseButton()
         addTargetToChooseButton()
         setupCollectionView()
     }
+    
+    //MARK: - UI Elements
+    
+    private func showLayoutElements() {
+        closeMarkView.isHidden = false
+        titleLabel.isHidden = false
+        chooseButton.isHidden = false
+    }
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .black
+        return activityIndicator
+    }()
     
     let closeMarkView: UIImageView = {
         let theImageView = UIImageView()
@@ -94,12 +111,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension MainViewController: MainDisplayLogic {
-    func present(data: [List], images: [UIImage], titleLabel: String, buttonText: String) {
-        self.list = data
-        self.images = images
-        self.titleLabel.text = titleLabel
-        self.chooseButton.setTitle(buttonText, for: .normal)
+
+    func displayData(viewModel: DataViewModel) {
+        self.list = viewModel.dataArray
+        self.images = viewModel.dataImagesArray
+        self.titleLabel.text = viewModel.title
+        self.chooseButton.setTitle(viewModel.buttonTitle, for: .normal)
         collectionview.reloadData()
+        activityIndicator.stopAnimating()
+        showLayoutElements()
     }
 }
 

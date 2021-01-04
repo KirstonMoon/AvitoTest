@@ -32,6 +32,7 @@ extension MainViewController {
     
     func setupChooseButton() {
         view.addSubview(chooseButton)
+        chooseButton.isHidden = true
         NSLayoutConstraint.activate([
             chooseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             chooseButton.heightAnchor.constraint(equalToConstant: 50),
@@ -44,6 +45,7 @@ extension MainViewController {
     
     func setupTitleLabel() {
         view.addSubview(titleLabel)
+        titleLabel.isHidden = true
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             titleLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
@@ -55,9 +57,21 @@ extension MainViewController {
     
     func setupCloseMarkView() {
         view.addSubview(closeMarkView)
+        closeMarkView.isHidden = true
         NSLayoutConstraint.activate([
             closeMarkView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             closeMarkView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+        ])
+    }
+    
+    // MARK: - Setup activity indicator
+    
+    func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35)
         ])
     }
     
