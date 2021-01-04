@@ -10,6 +10,7 @@
 		203F770025A1E019006A6A10 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203F76FF25A1E019006A6A10 /* DataModel.swift */; };
 		203F770425A1E167006A6A10 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203F770325A1E167006A6A10 /* NetworkService.swift */; };
 		203F773125A21371006A6A10 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203F773025A21371006A6A10 /* MainCollectionViewCell.swift */; };
+		205050FF25A39AFB00C07078 /* MainViewControllerCollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205050FE25A39AFB00C07078 /* MainViewControllerCollectionViewExtension.swift */; };
 		20F0C3E125A0A243009DFEC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0C3E025A0A243009DFEC2 /* AppDelegate.swift */; };
 		20F0C3E325A0A243009DFEC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0C3E225A0A243009DFEC2 /* SceneDelegate.swift */; };
 		20F0C3E525A0A243009DFEC2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0C3E425A0A243009DFEC2 /* MainViewController.swift */; };
@@ -24,6 +25,7 @@
 		203F76FF25A1E019006A6A10 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		203F770325A1E167006A6A10 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		203F773025A21371006A6A10 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		205050FE25A39AFB00C07078 /* MainViewControllerCollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerCollectionViewExtension.swift; sourceTree = "<group>"; };
 		20F0C3DD25A0A243009DFEC2 /* AvitoTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20F0C3E025A0A243009DFEC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20F0C3E225A0A243009DFEC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				20F0C3E425A0A243009DFEC2 /* MainViewController.swift */,
 				203F773025A21371006A6A10 /* MainCollectionViewCell.swift */,
+				205050FE25A39AFB00C07078 /* MainViewControllerCollectionViewExtension.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				20F0C3E125A0A243009DFEC2 /* AppDelegate.swift in Sources */,
 				20F0C3E325A0A243009DFEC2 /* SceneDelegate.swift in Sources */,
 				20F0C3FC25A0A3C5009DFEC2 /* MainInteractor.swift in Sources */,
+				205050FF25A39AFB00C07078 /* MainViewControllerCollectionViewExtension.swift in Sources */,
 				20F0C40225A0A50A009DFEC2 /* ModuleBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

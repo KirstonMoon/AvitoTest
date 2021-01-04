@@ -14,6 +14,7 @@ protocol MainDisplayLogic: class {
 final class MainViewController: UIViewController {
     
     private var selectedIndex: Int?
+    private var selectedString: String?
     
     var interactor: MainInteractorLogic?
     
@@ -30,8 +31,8 @@ final class MainViewController: UIViewController {
         interactor?.fetchDataFromJson()
         setupCloseMarkView()
         setupTitleLabel()
-        addTargetToChooseButton()
         setupChooseButton()
+        addTargetToChooseButton()
         setupCollectionView()
     }
     
@@ -67,12 +68,23 @@ final class MainViewController: UIViewController {
         return button
     }()
     
-     @objc private func didPressChooseButton() {
-        let alert = UIAlertController(title: "Please fill in all required fields", message: nil, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    @objc private func didPressChooseButton() {
         
-        alert.addAction(alertAction)
-        present(alert, animated: true, completion: nil)
+        if self.selectedString == nil {
+            let alert = UIAlertController(title: "Выберете один из вариантов", message: nil, preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(alertAction)
+            present(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: self.selectedString, message: nil, preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(alertAction)
+            present(alert, animated: true, completion: nil)
+        }
+        
+
+        
+        
     }
     
     private func addTargetToChooseButton() {
@@ -115,6 +127,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         if indexPath.row == selectedIndex {
             cell.checkMarkButton.isHidden = false
+            self.selectedString = cell.titlelabel.text
         } else {
             cell.checkMarkButton.isHidden = true
         }
@@ -145,7 +158,7 @@ private extension MainViewController {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 310, height: 165)
-
+        
         collectionview = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         collectionview.dataSource = self
         collectionview.delegate = self
