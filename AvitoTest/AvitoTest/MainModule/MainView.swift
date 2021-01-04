@@ -46,7 +46,7 @@ class MainView: UIView {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = .black
+        activityIndicator.color = .systemGray
         return activityIndicator
     }()
 
@@ -114,7 +114,7 @@ class MainView: UIView {
         collectionview = UICollectionView(frame: self.frame, collectionViewLayout: layout)
         collectionview.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.cellId)
         collectionview.showsVerticalScrollIndicator = false
-        collectionview.backgroundColor = .white
+        collectionview.backgroundColor = .systemBackground
         self.addSubview(collectionview)
         
         collectionview.translatesAutoresizingMaskIntoConstraints = false
