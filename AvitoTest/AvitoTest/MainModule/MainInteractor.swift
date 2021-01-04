@@ -14,6 +14,8 @@ protocol MainInteractorLogic: class {
     func fetchDataFromJson()
     var titleString: String? { get set }
     var itemsList: [List]? { get set }
+    var titleLabelString: String? { get set }
+    var buttonText: String? { get set }
 }
 
 final class MainInteractor {
@@ -23,9 +25,12 @@ final class MainInteractor {
     
     var titleString: String?
     var itemsList: [List]?
+    var titleLabelString: String?
+    var buttonText: String?
+    
     var images = [UIImage]()
-    var titleLabel = String()
-    var buttonText = String()
+
+
     
     init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol) {
         self.presenter = presenter
@@ -44,7 +49,7 @@ extension MainInteractor: MainInteractorLogic {
                     guard let resultData = resultData else { return }
                     self.titleString = resultData.result.title
                     self.itemsList = resultData.result.list
-                    self.titleLabel = resultData.result.title
+                    self.titleLabelString = resultData.result.title
                     self.buttonText = resultData.result.selectedActionTitle
                     
                     for imageURL in resultData.result.list {
@@ -53,7 +58,7 @@ extension MainInteractor: MainInteractorLogic {
                     }
                     
                     guard let items = self.itemsList else { return }
-                    self.presenter.presentData(data: items, images: self.images, title: self.titleLabel, buttonTitle: self.buttonText)
+                    self.presenter.presentData(data: items, images: self.images, title: self.titleLabelString, buttonTitle: self.buttonText)
                     
                 case .failure(let error):
                     print(error.localizedDescription as Any)

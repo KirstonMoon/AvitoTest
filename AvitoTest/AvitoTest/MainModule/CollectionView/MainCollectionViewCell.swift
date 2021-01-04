@@ -12,8 +12,9 @@ class MainCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-        
     }
+    
+    static let cellId = "Cell"
     
     private func setupView() {
         backgroundColor = #colorLiteral(red: 0.9724745154, green: 0.9725908637, blue: 0.9724350572, alpha: 1)

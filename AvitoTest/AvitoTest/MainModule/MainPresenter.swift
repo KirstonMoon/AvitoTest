@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainPresenterLogic: class {
-    func presentData(data: [List], images: [UIImage], title: String, buttonTitle: String)
+    func presentData(data: [List], images: [UIImage], title: String?, buttonTitle: String?)
 }
 
 final class MainPresenter {
@@ -17,7 +17,9 @@ final class MainPresenter {
 }
 
 extension MainPresenter: MainPresenterLogic {
-    func presentData(data: [List], images: [UIImage], title: String, buttonTitle: String) {
-        viewController?.present(data: data, images: images, titleLabel: title, buttonText: buttonTitle)
+    func presentData(data: [List], images: [UIImage], title: String?, buttonTitle: String?) {
+        viewController?.present(data: data, images: images,
+                                titleLabel: title ?? "No title",
+                                buttonText: buttonTitle ?? "No button title")
     }
 }
