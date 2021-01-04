@@ -26,12 +26,13 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         interactor?.fetchDataFromJson()
-        setupCollectionView()
         setupCloseMarkView()
         setupTitleLabel()
-        setupChooseButton()
         addTargetToChooseButton()
+        setupChooseButton()
+        setupCollectionView()
     }
     
     private let closeMarkView: UIImageView = {
@@ -143,9 +144,8 @@ private extension MainViewController {
     func setupCollectionView() {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 120, left: 0, bottom: 100, right: 0)
         layout.itemSize = CGSize(width: 310, height: 165)
-        
+
         collectionview = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         collectionview.dataSource = self
         collectionview.delegate = self
@@ -153,5 +153,13 @@ private extension MainViewController {
         collectionview.showsVerticalScrollIndicator = false
         collectionview.backgroundColor = .white
         view.addSubview(collectionview)
+        
+        collectionview.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionview.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 30),
+            collectionview.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            collectionview.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            collectionview.bottomAnchor.constraint(equalTo: self.chooseButton.topAnchor, constant: -5)
+        ])
     }
 }
