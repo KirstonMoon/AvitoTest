@@ -5,10 +5,10 @@
 //  Created by Kirill Magerya on 02.01.2021.
 //
 
-import Foundation
+import UIKit
 
 protocol MainPresenterLogic: class {
-    
+    func prepareDataForPresenting(dataResponse: DataResponse, dataImages: [UIImage])
 }
 
 final class MainPresenter {
@@ -17,5 +17,14 @@ final class MainPresenter {
 }
 
 extension MainPresenter: MainPresenterLogic {
-    
+    func prepareDataForPresenting(dataResponse: DataResponse, dataImages: [UIImage]) {
+        
+        let viewModel = DataViewModel(title: dataResponse.result.title,
+                                          buttonTitle: dataResponse.result.selectedActionTitle,
+                                          dataArray: dataResponse.result.list,
+                                          dataImagesArray: dataImages)
+
+        
+        viewController?.displayData(viewModel: viewModel)
+    }
 }

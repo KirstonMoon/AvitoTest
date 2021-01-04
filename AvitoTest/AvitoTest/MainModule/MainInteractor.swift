@@ -5,15 +5,15 @@
 //  Created by Kirill Magerya on 02.01.2021.
 //
 
-import Foundation
+import UIKit
 
 protocol MainInteractorLogic: class {
     
     init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol)
     
     func fetchDataFromJson()
-    var titleString: String? { get set }
-    var itemsList: [List]? { get set }
+    var data: DataResponse? { get set }
+    var dataImages: [UIImage]? { get set }
 }
 
 final class MainInteractor {
@@ -21,8 +21,8 @@ final class MainInteractor {
     var presenter: MainPresenterLogic
     let networkService: NetworkServiceProtocol
     
-    var titleString: String?
-    var itemsList: [List]?
+    var data: DataResponse?
+    var dataImages: [UIImage]?
     
     init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol) {
         self.presenter = presenter
@@ -38,10 +38,22 @@ extension MainInteractor: MainInteractorLogic {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let resultData):
-                    self.titleString = resultData?.result.title
-                    self.itemsList = resultData?.result.list
+                    guard let resultData = resultData else { return }
+                    self.data = resultData
+                    self.dataImages = [UIImage]()
+                    
+                    for imageURL in resultData.result.list {
+                        guard let url = URL(string: imageURL.icon.the52X52),
+                              let image = UIImage(data: try! Data(contentsOf: url)) else { return }
+                        self.dataImages?.append(image)
+                    }
+                    
+                    guard let data = self.data,
+                          let images = self.dataImages else { return }
+                    self.presenter.prepareDataForPresenting(dataResponse: data, dataImages: images)
+                    
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print(error.localizedDescription as Any)
                 }
             }
         }
