@@ -69,15 +69,6 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		203F772F25A2135A006A6A10 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				2050510425A3B95F00C07078 /* MainView.swift */,
-				20F0C3E425A0A243009DFEC2 /* MainViewController.swift */,
-			);
-			path = CollectionView;
-			sourceTree = "<group>";
-		};
 		20F0C3D425A0A243009DFEC2 = {
 			isa = PBXGroup;
 			children = (
@@ -97,9 +88,9 @@
 		20F0C3DF25A0A243009DFEC2 /* AvitoTest */ = {
 			isa = PBXGroup;
 			children = (
+				20F0C3F525A0A252009DFEC2 /* Application */,
 				203F772725A20B14006A6A10 /* Networking */,
 				203F76FE25A1E001006A6A10 /* Model */,
-				20F0C3F525A0A252009DFEC2 /* Application */,
 				20F0C3F925A0A3B9009DFEC2 /* MainModule */,
 			);
 			path = AvitoTest;
@@ -121,7 +112,8 @@
 		20F0C3F925A0A3B9009DFEC2 /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
-				203F772F25A2135A006A6A10 /* CollectionView */,
+				2050510425A3B95F00C07078 /* MainView.swift */,
+				20F0C3E425A0A243009DFEC2 /* MainViewController.swift */,
 				20F0C3FB25A0A3C5009DFEC2 /* MainInteractor.swift */,
 				20F0C3FE25A0A3CE009DFEC2 /* MainPresenter.swift */,
 			);
