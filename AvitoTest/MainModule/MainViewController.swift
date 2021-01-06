@@ -22,9 +22,9 @@ final class MainViewController: UIViewController {
         return view
     }
     
-    static var selectedIndex: IndexPath?
-    static var notSelectedIndex: IndexPath?
-    static var selectedTitleString: String?
+    private var selectedIndexPath: IndexPath?
+    private var notSelectedIndexPath: IndexPath?
+    private var selectedTitleString = "Выберете один из вариантов"
     
     var interactor: MainInteractorLogic?
     
@@ -57,10 +57,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.priceLabel.text = fetchedDataArray?[indexPath.row].price
         cell.titleImageView.image = images?[indexPath.row]
         
-        if indexPath == MainViewController.selectedIndex {
+        switch indexPath {
+        case selectedIndexPath:
             cell.checkMarkButton.isHidden = false
-            MainViewController.selectedTitleString = cell.titlelabel.text
-        } else {
+            guard let cellTitleText = cell.titlelabel.text else { return UICollectionViewCell() }
+            selectedTitleString = cellTitleText
+        default:
             cell.checkMarkButton.isHidden = true
         }
         return cell
@@ -68,21 +70,20 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if MainViewController.selectedIndex == indexPath {
-            MainViewController.selectedIndex = MainViewController.notSelectedIndex
-            MainViewController.selectedTitleString = "Выберете один из вариантов"
+        switch selectedIndexPath {
+        case indexPath:
+            selectedIndexPath = notSelectedIndexPath
+            selectedTitleString = "Выберете один из вариантов"
             mainView.collectionView.reloadData()
-        } else {
-            MainViewController.selectedIndex = indexPath
+        default:
+            selectedIndexPath = indexPath
             mainView.collectionView.reloadData()
         }
-        
-
     }
 }
 
 extension MainViewController: MainDisplayLogic {
-
+    
     func displayData(viewModel: DataViewModel) {
         fetchedDataArray = viewModel.dataArray
         images = viewModel.dataImagesArray
@@ -97,17 +98,10 @@ extension MainViewController: MainDisplayLogic {
 private extension MainViewController {
     @objc func didPressChooseButton() {
         
-        if MainViewController.selectedTitleString == nil {
-            let alert = UIAlertController(title: "Выберете один из вариантов", message: nil, preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(alertAction)
-            present(alert, animated: true, completion: nil)
-        } else {
-            let alert = UIAlertController(title: MainViewController.selectedTitleString, message: nil, preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(alertAction)
-            present(alert, animated: true, completion: nil)
-        }
+        let alert = UIAlertController(title: selectedTitleString, message: nil, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
     
     func addTargetToChooseButton() {
