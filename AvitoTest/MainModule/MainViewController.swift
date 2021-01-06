@@ -22,7 +22,8 @@ final class MainViewController: UIViewController {
         return view
     }
     
-    static var selectedIndex: Int?
+    static var selectedIndex: IndexPath?
+    static var notSelectedIndex: IndexPath?
     static var selectedTitleString: String?
     
     var interactor: MainInteractorLogic?
@@ -38,8 +39,8 @@ final class MainViewController: UIViewController {
     }
     
     private func setupDelegateAndDataSource() {
-        mainView.collectionview.delegate = self
-        mainView.collectionview.dataSource = self
+        mainView.collectionView.delegate = self
+        mainView.collectionView.dataSource = self
     }
 }
 
@@ -50,13 +51,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = mainView.collectionview.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as! MainCollectionViewCell
+        let cell = mainView.collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as! MainCollectionViewCell
         cell.titlelabel.text = fetchedDataArray?[indexPath.row].title
         cell.textLabel.text = fetchedDataArray?[indexPath.row].listDescription
         cell.priceLabel.text = fetchedDataArray?[indexPath.row].price
         cell.titleImageView.image = images?[indexPath.row]
         
-        if indexPath.row == MainViewController.selectedIndex {
+        if indexPath == MainViewController.selectedIndex {
             cell.checkMarkButton.isHidden = false
             MainViewController.selectedTitleString = cell.titlelabel.text
         } else {
@@ -66,8 +67,17 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        MainViewController.selectedIndex = indexPath.row
-        mainView.collectionview.reloadData()
+        
+        if MainViewController.selectedIndex == indexPath {
+            MainViewController.selectedIndex = MainViewController.notSelectedIndex
+            MainViewController.selectedTitleString = "Выберете один из вариантов"
+            mainView.collectionView.reloadData()
+        } else {
+            MainViewController.selectedIndex = indexPath
+            mainView.collectionView.reloadData()
+        }
+        
+
     }
 }
 
@@ -78,7 +88,7 @@ extension MainViewController: MainDisplayLogic {
         images = viewModel.dataImagesArray
         mainView.titleLabel.text = viewModel.title
         mainView.chooseButton.setTitle(viewModel.buttonTitle, for: .normal)
-        mainView.collectionview.reloadData()
+        mainView.collectionView.reloadData()
         mainView.activityIndicator.stopAnimating()
         mainView.showUIelements()
     }
