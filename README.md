@@ -1,5 +1,4 @@
-# AvitoTest
-Тестовое задание для стажировки в Avito
+# Тестовое задание для стажировки в Avito
 
 Реализованный экран в соответствии с примером макета: https://raw.githubusercontent.com/avito-tech/internship/main/screen.png 
 Отступы, шрифты - на глаз по картине
