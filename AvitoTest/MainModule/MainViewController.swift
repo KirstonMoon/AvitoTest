@@ -22,8 +22,9 @@ final class MainViewController: UIViewController {
         return view
     }
     
-    static var selectedIndex: Int?
-    static var selectedTitleString: String?
+    private var selectedIndexPath: IndexPath?
+    private var notSelectedIndexPath: IndexPath?
+    private var selectedTitleString = "Выберете один из вариантов"
     
     var interactor: MainInteractorLogic?
     
@@ -38,8 +39,8 @@ final class MainViewController: UIViewController {
     }
     
     private func setupDelegateAndDataSource() {
-        mainView.collectionview.delegate = self
-        mainView.collectionview.dataSource = self
+        mainView.collectionView.delegate = self
+        mainView.collectionView.dataSource = self
     }
 }
 
@@ -50,35 +51,45 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = mainView.collectionview.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as! MainCollectionViewCell
+        let cell = mainView.collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as! MainCollectionViewCell
         cell.titlelabel.text = fetchedDataArray?[indexPath.row].title
         cell.textLabel.text = fetchedDataArray?[indexPath.row].listDescription
         cell.priceLabel.text = fetchedDataArray?[indexPath.row].price
         cell.titleImageView.image = images?[indexPath.row]
         
-        if indexPath.row == MainViewController.selectedIndex {
+        switch indexPath {
+        case selectedIndexPath:
             cell.checkMarkButton.isHidden = false
-            MainViewController.selectedTitleString = cell.titlelabel.text
-        } else {
+            guard let cellTitleText = cell.titlelabel.text else { return UICollectionViewCell() }
+            selectedTitleString = cellTitleText
+        default:
             cell.checkMarkButton.isHidden = true
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        MainViewController.selectedIndex = indexPath.row
-        mainView.collectionview.reloadData()
+        
+        switch selectedIndexPath {
+        case indexPath:
+            selectedIndexPath = notSelectedIndexPath
+            selectedTitleString = "Выберете один из вариантов"
+            mainView.collectionView.reloadData()
+        default:
+            selectedIndexPath = indexPath
+            mainView.collectionView.reloadData()
+        }
     }
 }
 
 extension MainViewController: MainDisplayLogic {
-
+    
     func displayData(viewModel: DataViewModel) {
         fetchedDataArray = viewModel.dataArray
         images = viewModel.dataImagesArray
         mainView.titleLabel.text = viewModel.title
         mainView.chooseButton.setTitle(viewModel.buttonTitle, for: .normal)
-        mainView.collectionview.reloadData()
+        mainView.collectionView.reloadData()
         mainView.activityIndicator.stopAnimating()
         mainView.showUIelements()
     }
@@ -87,17 +98,10 @@ extension MainViewController: MainDisplayLogic {
 private extension MainViewController {
     @objc func didPressChooseButton() {
         
-        if MainViewController.selectedTitleString == nil {
-            let alert = UIAlertController(title: "Выберете один из вариантов", message: nil, preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(alertAction)
-            present(alert, animated: true, completion: nil)
-        } else {
-            let alert = UIAlertController(title: MainViewController.selectedTitleString, message: nil, preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(alertAction)
-            present(alert, animated: true, completion: nil)
-        }
+        let alert = UIAlertController(title: selectedTitleString, message: nil, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
     
     func addTargetToChooseButton() {

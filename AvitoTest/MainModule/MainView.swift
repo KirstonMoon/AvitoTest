@@ -15,7 +15,7 @@ class MainView: UIView {
         setupView()
     }
     
-    var collectionview: UICollectionView!
+    var collectionView: UICollectionView!
     
     private func setupAppearance() {
         backgroundColor = .systemBackground
@@ -111,18 +111,18 @@ class MainView: UIView {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 310, height: 165)
         
-        collectionview = UICollectionView(frame: self.frame, collectionViewLayout: layout)
-        collectionview.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.cellId)
-        collectionview.showsVerticalScrollIndicator = false
-        collectionview.backgroundColor = .systemBackground
-        self.addSubview(collectionview)
+        collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
+        collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.cellId)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .systemBackground
+        self.addSubview(collectionView)
         
-        collectionview.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionview.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 30),
-            collectionview.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor),
-            collectionview.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor),
-            collectionview.bottomAnchor.constraint(equalTo: self.chooseButton.topAnchor, constant: -5)
+            collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 30),
+            collectionView.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.chooseButton.topAnchor, constant: -5)
         ])
     }
     
