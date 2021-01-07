@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MainPresenterLogic: class {
+protocol MainPresenterLogic: AnyObject {
     func recieveData(dataViewModel: DataViewModel)
     init(interactor: MainInteractorLogic)
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MainInteractorLogic: class {
+protocol MainInteractorLogic: AnyObject {
     
     func loadDataFromJson()
     

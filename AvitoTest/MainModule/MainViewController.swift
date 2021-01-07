@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MainDisplayLogic: class {
+protocol MainDisplayLogic: AnyObject {
     func displayData(title: String, buttonTitle: String, fetchedData: [List], fetchedImages: [UIImage])
 }
 
