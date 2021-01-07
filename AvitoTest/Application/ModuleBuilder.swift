@@ -9,21 +9,23 @@ import UIKit
 
 protocol Builder {
     
-    static func createMain() -> UIViewController
+    static func createMainVC() -> UIViewController
 }
 
-class ModuleBuilder: Builder {
+final class ModuleBuilder: Builder {
     
-    static func createMain() -> UIViewController {
+    static func createMainVC() -> UIViewController {
         
         let view = MainViewController()
-        let presenter = MainPresenter()
         let networkService = NetworkService()
-        let interactor = MainInteractor(presenter: presenter, networkService: networkService)
-        
+        let interactor = MainInteractor(networkService: networkService)
+        let presenter = MainPresenter(interactor: interactor)
+
+        view.eventHandler = presenter
+        presenter.interactor = interactor
+        presenter.view = view
+        interactor.networkService = networkService
         interactor.presenter = presenter
-        presenter.viewController = view
-        view.interactor = interactor
         
         return view
     }

@@ -12,7 +12,7 @@ protocol NetworkServiceProtocol {
     func getComments(completion: @escaping (Result<DataResponse?, Error>) -> Void)
 }
 
-class NetworkService: NetworkServiceProtocol {
+final class NetworkService: NetworkServiceProtocol {
     
     func getComments(completion: @escaping (Result<DataResponse?, Error>) -> Void) {
         
