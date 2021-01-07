@@ -18,7 +18,7 @@ protocol MainViewEventHandler {
 
 final class MainPresenter {
     
-    weak var viewController: MainDisplayLogic?
+    weak var view: MainDisplayLogic?
     var interactor: MainInteractorLogic
     
     init(interactor: MainInteractorLogic) {
@@ -33,7 +33,7 @@ extension MainPresenter: MainPresenterLogic {
         let imagesArray = dataViewModel.dataImagesArray
         let title = dataViewModel.title
         let buttonTitle = dataViewModel.buttonTitle
-        viewController?.displayData(title: title, buttonTitle: buttonTitle,
+        view?.displayData(title: title, buttonTitle: buttonTitle,
                                          fetchedData: dataArray, fetchedImages: imagesArray)
     }
 }
