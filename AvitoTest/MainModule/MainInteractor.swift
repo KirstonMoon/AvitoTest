@@ -8,31 +8,23 @@
 import UIKit
 
 protocol MainInteractorLogic: class {
-    
-    init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol)
-    
-    func fetchDataFromJson()
+    func loadDataFromJson()
     var data: DataResponse? { get set }
     var dataImages: [UIImage]? { get set }
 }
 
 final class MainInteractor {
     
-    var presenter: MainPresenterLogic
-    let networkService: NetworkServiceProtocol
+    weak var presenter: MainPresenterLogic?
+    var networkService: NetworkServiceProtocol?
     
     var data: DataResponse?
     var dataImages: [UIImage]?
-    
-    init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol) {
-        self.presenter = presenter
-        self.networkService = networkService
-    }
 }
 
 extension MainInteractor: MainInteractorLogic {
-    func fetchDataFromJson() {
-        networkService.getComments { [weak self] result in
+    func loadDataFromJson() {
+        networkService?.getComments { [weak self] result in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
@@ -50,7 +42,11 @@ extension MainInteractor: MainInteractorLogic {
                     
                     guard let data = self.data,
                           let images = self.dataImages else { return }
-                    self.presenter.prepareDataForPresenting(dataResponse: data, dataImages: images)
+                    
+                    self.presenter?.recieveData(dataViewModel: DataViewModel(title: resultData.result.title,
+                                                                            buttonTitle: resultData.result.selectedActionTitle,
+                                                                            dataArray: data.result.list,
+                                                                            dataImagesArray: images))
                     
                 case .failure(let error):
                     print(error.localizedDescription as Any)

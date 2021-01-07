@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainDisplayLogic: class {
-    func displayData(viewModel: DataViewModel)
+    func displayData(title: String, buttonTitle: String, data: [List], images: [UIImage])
 }
 
 final class MainViewController: UIViewController {
@@ -26,16 +26,16 @@ final class MainViewController: UIViewController {
     private var notSelectedIndexPath: IndexPath?
     private var selectedTitleString = "Выберете один из вариантов"
     
-    var interactor: MainInteractorLogic?
-    
     private var fetchedDataArray: [List]?
     private var images: [UIImage]?
+    
+    var eventHandler: MainViewEventHandler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargetToChooseButton()
         setupDelegateAndDataSource()
-        interactor?.fetchDataFromJson()
+        self.eventHandler?.fetchData()
     }
     
     private func setupDelegateAndDataSource() {
@@ -84,11 +84,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension MainViewController: MainDisplayLogic {
     
-    func displayData(viewModel: DataViewModel) {
-        fetchedDataArray = viewModel.dataArray
-        images = viewModel.dataImagesArray
-        mainView.titleLabel.text = viewModel.title
-        mainView.chooseButton.setTitle(viewModel.buttonTitle, for: .normal)
+    func displayData(title: String, buttonTitle: String, data: [List], images: [UIImage]) {
+        self.fetchedDataArray = data
+        self.images = images
+        mainView.titleLabel.text = title
+        mainView.chooseButton.setTitle(buttonTitle, for: .normal)
         mainView.collectionView.reloadData()
         mainView.activityIndicator.stopAnimating()
         mainView.showUIelements()

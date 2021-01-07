@@ -12,18 +12,20 @@ protocol Builder {
     static func createMain() -> UIViewController
 }
 
-class ModuleBuilder: Builder {
+final class ModuleBuilder: Builder {
     
     static func createMain() -> UIViewController {
         
         let view = MainViewController()
-        let presenter = MainPresenter()
         let networkService = NetworkService()
-        let interactor = MainInteractor(presenter: presenter, networkService: networkService)
+        let presenter = MainPresenter()
+        let interactor = MainInteractor()
         
-        interactor.presenter = presenter
+        view.eventHandler = presenter
+        presenter.interactor = interactor
         presenter.viewController = view
-        view.interactor = interactor
+        interactor.networkService = networkService
+        interactor.presenter = presenter
         
         return view
     }
