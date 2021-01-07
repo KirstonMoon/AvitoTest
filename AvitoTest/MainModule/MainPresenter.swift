@@ -9,6 +9,7 @@ import UIKit
 
 protocol MainPresenterLogic: class {
     func recieveData(dataViewModel: DataViewModel)
+    init(interactor: MainInteractorLogic)
 }
 
 protocol MainViewEventHandler {
@@ -18,7 +19,11 @@ protocol MainViewEventHandler {
 final class MainPresenter {
     
     weak var viewController: MainDisplayLogic?
-    var interactor: MainInteractorLogic?
+    var interactor: MainInteractorLogic
+    
+    init(interactor: MainInteractorLogic) {
+        self.interactor = interactor
+    }
 }
 
 extension MainPresenter: MainPresenterLogic {
@@ -36,6 +41,6 @@ extension MainPresenter: MainPresenterLogic {
 extension MainPresenter: MainViewEventHandler {
     
     func fetchData() {
-        interactor?.loadDataFromJson()
+        interactor.loadDataFromJson()
     }
 }

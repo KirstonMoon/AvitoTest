@@ -18,9 +18,9 @@ final class ModuleBuilder: Builder {
         
         let view = MainViewController()
         let networkService = NetworkService()
-        let presenter = MainPresenter()
-        let interactor = MainInteractor()
-        
+        let interactor = MainInteractor(networkService: networkService)
+        let presenter = MainPresenter(interactor: interactor)
+
         view.eventHandler = presenter
         presenter.interactor = interactor
         presenter.viewController = view

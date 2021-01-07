@@ -17,11 +17,6 @@ final class MainViewController: UIViewController {
         view = MainView()
     }
     
-    private var mainView: MainView {
-        guard let view = view as? MainView else { fatalError("Could not create a view") }
-        return view
-    }
-    
     private var selectedIndexPath: IndexPath?
     private var notSelectedIndexPath: IndexPath?
     private var selectedTitleString = "Выберете один из вариантов"
@@ -30,6 +25,11 @@ final class MainViewController: UIViewController {
     private var images: [UIImage]?
     
     var eventHandler: MainViewEventHandler?
+    
+    private var mainView: MainView {
+        guard let view = view as? MainView else { fatalError("Could not create a view") }
+        return view
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

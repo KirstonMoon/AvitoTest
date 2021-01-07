@@ -8,23 +8,31 @@
 import UIKit
 
 protocol MainInteractorLogic: class {
+    
     func loadDataFromJson()
+    
     var data: DataResponse? { get set }
     var dataImages: [UIImage]? { get set }
+    
+    init(networkService: NetworkServiceProtocol)
 }
 
 final class MainInteractor {
     
     weak var presenter: MainPresenterLogic?
-    var networkService: NetworkServiceProtocol?
+    var networkService: NetworkServiceProtocol
     
     var data: DataResponse?
     var dataImages: [UIImage]?
+    
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
 }
 
 extension MainInteractor: MainInteractorLogic {
     func loadDataFromJson() {
-        networkService?.getComments { [weak self] result in
+        networkService.getComments { [weak self] result in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
