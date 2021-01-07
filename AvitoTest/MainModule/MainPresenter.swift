@@ -34,7 +34,7 @@ extension MainPresenter: MainPresenterLogic {
         let title = dataViewModel.title
         let buttonTitle = dataViewModel.buttonTitle
         viewController?.displayData(title: title, buttonTitle: buttonTitle,
-                                         data: dataArray, images: imagesArray)
+                                         fetchedData: dataArray, fetchedImages: imagesArray)
     }
 }
 

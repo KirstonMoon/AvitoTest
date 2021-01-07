@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainDisplayLogic: class {
-    func displayData(title: String, buttonTitle: String, data: [List], images: [UIImage])
+    func displayData(title: String, buttonTitle: String, fetchedData: [List], fetchedImages: [UIImage])
 }
 
 final class MainViewController: UIViewController {
@@ -35,7 +35,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         addTargetToChooseButton()
         setupDelegateAndDataSource()
-        self.eventHandler?.fetchData()
+        eventHandler?.fetchData()
     }
     
     private func setupDelegateAndDataSource() {
@@ -51,6 +51,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = mainView.collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as! MainCollectionViewCell
         cell.titlelabel.text = fetchedDataArray?[indexPath.row].title
         cell.textLabel.text = fetchedDataArray?[indexPath.row].listDescription
@@ -84,9 +85,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension MainViewController: MainDisplayLogic {
     
-    func displayData(title: String, buttonTitle: String, data: [List], images: [UIImage]) {
-        self.fetchedDataArray = data
-        self.images = images
+    func displayData(title: String, buttonTitle: String, fetchedData: [List], fetchedImages: [UIImage]) {
+        
+        fetchedDataArray = fetchedData
+        images = fetchedImages
         mainView.titleLabel.text = title
         mainView.chooseButton.setTitle(buttonTitle, for: .normal)
         mainView.collectionView.reloadData()
