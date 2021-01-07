@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol MainDisplayLogic: class {
-    func displayData(viewModel: DataViewModel)
+protocol MainDisplayLogic: AnyObject {
+    func displayData(title: String, buttonTitle: String, fetchedData: [List], fetchedImages: [UIImage])
 }
 
 final class MainViewController: UIViewController {
@@ -17,25 +17,25 @@ final class MainViewController: UIViewController {
         view = MainView()
     }
     
+    private var selectedIndexPath: IndexPath?
+    private var notSelectedIndexPath: IndexPath?
+    private var selectedTitleString = "Выберете один из вариантов"
+    
+    private var fetchedDataArray: [List]?
+    private var images: [UIImage]?
+    
+    var eventHandler: MainViewEventHandler?
+    
     private var mainView: MainView {
         guard let view = view as? MainView else { fatalError("Could not create a view") }
         return view
     }
     
-    private var selectedIndexPath: IndexPath?
-    private var notSelectedIndexPath: IndexPath?
-    private var selectedTitleString = "Выберете один из вариантов"
-    
-    var interactor: MainInteractorLogic?
-    
-    private var fetchedDataArray: [List]?
-    private var images: [UIImage]?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTargetToChooseButton()
         setupDelegateAndDataSource()
-        interactor?.fetchDataFromJson()
+        eventHandler?.fetchData()
     }
     
     private func setupDelegateAndDataSource() {
@@ -51,6 +51,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = mainView.collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.cellId, for: indexPath) as! MainCollectionViewCell
         cell.titlelabel.text = fetchedDataArray?[indexPath.row].title
         cell.textLabel.text = fetchedDataArray?[indexPath.row].listDescription
@@ -84,11 +85,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension MainViewController: MainDisplayLogic {
     
-    func displayData(viewModel: DataViewModel) {
-        fetchedDataArray = viewModel.dataArray
-        images = viewModel.dataImagesArray
-        mainView.titleLabel.text = viewModel.title
-        mainView.chooseButton.setTitle(viewModel.buttonTitle, for: .normal)
+    func displayData(title: String, buttonTitle: String, fetchedData: [List], fetchedImages: [UIImage]) {
+        
+        fetchedDataArray = fetchedData
+        images = fetchedImages
+        mainView.titleLabel.text = title
+        mainView.chooseButton.setTitle(buttonTitle, for: .normal)
         mainView.collectionView.reloadData()
         mainView.activityIndicator.stopAnimating()
         mainView.showUIelements()

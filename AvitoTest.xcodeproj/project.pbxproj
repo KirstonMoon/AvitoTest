@@ -114,8 +114,8 @@
 			children = (
 				2050510425A3B95F00C07078 /* MainView.swift */,
 				20F0C3E425A0A243009DFEC2 /* MainViewController.swift */,
-				20F0C3FB25A0A3C5009DFEC2 /* MainInteractor.swift */,
 				20F0C3FE25A0A3CE009DFEC2 /* MainPresenter.swift */,
+				20F0C3FB25A0A3C5009DFEC2 /* MainInteractor.swift */,
 			);
 			path = MainModule;
 			sourceTree = "<group>";

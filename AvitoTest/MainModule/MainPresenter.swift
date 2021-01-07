@@ -7,24 +7,40 @@
 
 import UIKit
 
-protocol MainPresenterLogic: class {
-    func prepareDataForPresenting(dataResponse: DataResponse, dataImages: [UIImage])
+protocol MainPresenterLogic: AnyObject {
+    func recieveData(dataViewModel: DataViewModel)
+    init(interactor: MainInteractorLogic)
+}
+
+protocol MainViewEventHandler {
+    func fetchData()
 }
 
 final class MainPresenter {
     
-    weak var viewController: MainDisplayLogic?
+    weak var view: MainDisplayLogic?
+    var interactor: MainInteractorLogic
+    
+    init(interactor: MainInteractorLogic) {
+        self.interactor = interactor
+    }
 }
 
 extension MainPresenter: MainPresenterLogic {
-    func prepareDataForPresenting(dataResponse: DataResponse, dataImages: [UIImage]) {
-        
-        let viewModel = DataViewModel(title: dataResponse.result.title,
-                                          buttonTitle: dataResponse.result.selectedActionTitle,
-                                          dataArray: dataResponse.result.list,
-                                          dataImagesArray: dataImages)
+    
+    func recieveData(dataViewModel: DataViewModel) {
+        let dataArray = dataViewModel.dataArray
+        let imagesArray = dataViewModel.dataImagesArray
+        let title = dataViewModel.title
+        let buttonTitle = dataViewModel.buttonTitle
+        view?.displayData(title: title, buttonTitle: buttonTitle,
+                                         fetchedData: dataArray, fetchedImages: imagesArray)
+    }
+}
 
-        
-        viewController?.displayData(viewModel: viewModel)
+extension MainPresenter: MainViewEventHandler {
+    
+    func fetchData() {
+        interactor.loadDataFromJson()
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainView: UIView {
+final class MainView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,41 +68,41 @@ class MainView: UIView {
     }()
     
     private func setupChooseButton() {
-        self.addSubview(chooseButton)
+        addSubview(chooseButton)
         chooseButton.isHidden = true
         NSLayoutConstraint.activate([
-            chooseButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            chooseButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
             chooseButton.heightAnchor.constraint(equalToConstant: 50),
-            chooseButton.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            chooseButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -20)
+            chooseButton.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
+            chooseButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -20)
         ])
     }
     
     private func setupTitleLabel() {
-        self.addSubview(titleLabel)
+        addSubview(titleLabel)
         titleLabel.isHidden = true
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 40),
-            titleLabel.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            titleLabel.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -40)
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40),
+            titleLabel.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
+            titleLabel.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -40)
         ])
     }
     
     private func setupCloseMarkView() {
-        self.addSubview(closeMarkView)
+        addSubview(closeMarkView)
         closeMarkView.isHidden = true
         NSLayoutConstraint.activate([
-            closeMarkView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 5),
-            closeMarkView.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            closeMarkView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 5),
+            closeMarkView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20),
         ])
     }
     
     private func setupActivityIndicator() {
-        self.addSubview(activityIndicator)
+        addSubview(activityIndicator)
         activityIndicator.startAnimating()
         NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            activityIndicator.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 35)
+            activityIndicator.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 35)
         ])
     }
     
@@ -111,18 +111,18 @@ class MainView: UIView {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 310, height: 165)
         
-        collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.cellId)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .systemBackground
-        self.addSubview(collectionView)
+        addSubview(collectionView)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 30),
-            collectionView.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.chooseButton.topAnchor, constant: -5)
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            collectionView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: chooseButton.topAnchor, constant: -5)
         ])
     }
     

@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let mainVC = ModuleBuilder.createMain()
+        let mainVC = ModuleBuilder.createMainVC()
         
         window?.rootViewController = mainVC
         window?.makeKeyAndVisible()

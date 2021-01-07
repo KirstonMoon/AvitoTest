@@ -7,31 +7,31 @@
 
 import UIKit
 
-protocol MainInteractorLogic: class {
+protocol MainInteractorLogic: AnyObject {
     
-    init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol)
+    func loadDataFromJson()
     
-    func fetchDataFromJson()
     var data: DataResponse? { get set }
     var dataImages: [UIImage]? { get set }
+    
+    init(networkService: NetworkServiceProtocol)
 }
 
 final class MainInteractor {
     
-    var presenter: MainPresenterLogic
-    let networkService: NetworkServiceProtocol
+    weak var presenter: MainPresenterLogic?
+    var networkService: NetworkServiceProtocol
     
     var data: DataResponse?
     var dataImages: [UIImage]?
     
-    init(presenter: MainPresenterLogic, networkService: NetworkServiceProtocol) {
-        self.presenter = presenter
+    init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
     }
 }
 
 extension MainInteractor: MainInteractorLogic {
-    func fetchDataFromJson() {
+    func loadDataFromJson() {
         networkService.getComments { [weak self] result in
             guard let self = self else { return }
             
@@ -50,7 +50,11 @@ extension MainInteractor: MainInteractorLogic {
                     
                     guard let data = self.data,
                           let images = self.dataImages else { return }
-                    self.presenter.prepareDataForPresenting(dataResponse: data, dataImages: images)
+                    
+                    self.presenter?.recieveData(dataViewModel: DataViewModel(title: resultData.result.title,
+                                                                            buttonTitle: resultData.result.selectedActionTitle,
+                                                                            dataArray: data.result.list,
+                                                                            dataImagesArray: images))
                     
                 case .failure(let error):
                     print(error.localizedDescription as Any)
