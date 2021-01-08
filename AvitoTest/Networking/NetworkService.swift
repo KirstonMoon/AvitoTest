@@ -9,12 +9,12 @@ import Foundation
 
 protocol NetworkServiceProtocol {
     
-    func getComments(completion: @escaping (Result<DataResponse?, Error>) -> Void)
+    func getDataFromJson(completion: @escaping (Result<DataResponse?, Error>) -> Void)
 }
 
 final class NetworkService: NetworkServiceProtocol {
     
-    func getComments(completion: @escaping (Result<DataResponse?, Error>) -> Void) {
+    func getDataFromJson(completion: @escaping (Result<DataResponse?, Error>) -> Void) {
         
         let urlString = "https://raw.githubusercontent.com/avito-tech/internship/main/result.json"
         guard let url = URL(string: urlString) else { return }
