@@ -9,8 +9,8 @@ import UIKit
 
 protocol MainInteractorLogic: AnyObject {
     func loadDataFromJson()
-    var data: DataResponse? { get set }
-    var dataImages: [UIImage]? { get set }
+    var recievedData: DataResponse? { get set }
+    var recievedImages: [UIImage]? { get set }
     init(networkService: NetworkServiceProtocol)
 }
 
@@ -19,8 +19,8 @@ final class MainInteractor {
     weak var presenter: MainPresenterLogic?
     var networkService: NetworkServiceProtocol
     
-    var data: DataResponse?
-    var dataImages: [UIImage]?
+    var recievedData: DataResponse?
+    var recievedImages: [UIImage]?
     
     init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
@@ -36,18 +36,16 @@ extension MainInteractor: MainInteractorLogic {
                 switch result {
                 case .success(let resultData):
                     guard let resultData = resultData else { return }
-                    self.data = resultData
-                    self.dataImages = [UIImage]()
+                    self.recievedData = resultData
+                    self.recievedImages = [UIImage]()
                     
-                    for imageURL in resultData.result.list {
-                        guard let url = URL(string: imageURL.icon.the52X52),
-                              let image = UIImage(data: try! Data(contentsOf: url)) else { return }
-                        self.dataImages?.append(image)
+                    resultData.result.list.forEach { url in
+                        guard let imgUrl = URL(string: url.icon.the52X52), let image = UIImage(data: try! Data(contentsOf: imgUrl)) else { return }
+                        self.recievedImages?.append(image)
+                        
                     }
                     
-                    guard let data = self.data,
-                          let images = self.dataImages else { return }
-                    
+                    guard let data = self.recievedData, let images = self.recievedImages else { return }
                     self.presenter?.recieveData(dataViewModel: DataViewModel(title: resultData.result.title,
                                                                             buttonTitle: resultData.result.selectedActionTitle,
                                                                             dataArray: data.result.list,

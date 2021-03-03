@@ -58,12 +58,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.priceLabel.text = fetchedDataArray?[indexPath.row].price
         cell.titleImageView.image = images?[indexPath.row]
         
-        switch indexPath {
-        case selectedIndexPath:
+        if indexPath == selectedIndexPath {
             cell.checkMarkButton.isHidden = false
             guard let cellTitleText = cell.titlelabel.text else { return UICollectionViewCell() }
             selectedTitleString = cellTitleText
-        default:
+        } else {
             cell.checkMarkButton.isHidden = true
         }
         return cell
@@ -71,12 +70,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        switch selectedIndexPath {
-        case indexPath:
+        if selectedIndexPath == indexPath {
             selectedIndexPath = notSelectedIndexPath
             selectedTitleString = "Выберете один из вариантов"
             mainView.collectionView.reloadData()
-        default:
+        } else {
             selectedIndexPath = indexPath
             mainView.collectionView.reloadData()
         }
