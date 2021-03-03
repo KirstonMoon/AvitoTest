@@ -1,5 +1,5 @@
 # Тестовое задание для стажировки в Avito  
-## Описание задания
+## Описание задания:
 Реализать экран в соответствии с примером макета: https://raw.githubusercontent.com/avito-tech/internship/main/screen.png   
 Отступы, шрифты - на глаз по картине  
 Парсинг данных для экрана из json файла: https://raw.githubusercontent.com/avito-tech/internship/main/result.json  
